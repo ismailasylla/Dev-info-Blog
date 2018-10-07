@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
 // importing routes api for the account informations such users profile posts
 const user = require('./routes/api/users');
@@ -7,6 +8,10 @@ const profile = require('./routes/api/profile');
 const posts = require('./routes/api/posts');
 
 const app = express();
+
+// Body Parser middleware
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // db config
 const db = require('./config/keys').mongoURI;
