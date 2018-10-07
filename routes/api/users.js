@@ -15,14 +15,14 @@ router.get('/test', (req, res) => {
 
 //@route   Get Api/users/register
 //@desc    Register the User
-//@access  Public
+//@access  Public....
 
 router.post('/register', (req, res) => {
   User.findOne({ email: req.body.email }).then(user => {
     if (user) {
       return res.status(400).json({ email: 'Email already exist' });
     } else {
-      const avatar = gravatar.url(req.body.email, {  
+      const avatar = gravatar.url(req.body.email, {
         s: '200', //Size
         r: 'pg', //Rating
         d: 'mm' //Default
@@ -38,7 +38,8 @@ router.post('/register', (req, res) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
           if (err) throw err;
           newUser.password = hash;
-          newUser.save()
+          newUser
+            .save()
             .then(user => res.json(user))
             .catch(err => console.log(err));
         });
